@@ -1,31 +1,178 @@
-/* =====================
-   LOAD MORE BUTTON
-===================== */
+*{
+
+box-sizing:border-box;
+
+}
 
 
-#loadMore{
 
-display:block;
+body{
+
+
+margin:0;
+
+
+padding:0;
+
+
+font-family:
+
+Arial,
+
+Helvetica,
+
+sans-serif;
+
+
+
+background:#f3f3f3;
+
+
+color:#222;
+
+
+}
+
+
+
+.container{
+
 
 width:100%;
 
-margin:20px 0;
 
-padding:13px;
+max-width:650px;
 
-background:#444;
 
-color:white;
+margin:auto;
 
-border:none;
+
+padding:20px 15px;
+
+
+}
+
+
+
+
+
+h1{
+
+
+text-align:center;
+
+
+font-size:28px;
+
+
+margin-bottom:20px;
+
+
+}
+
+
+
+
+
+.profile{
+
+
+background:white;
+
+
+padding:15px;
+
+
+border-radius:12px;
+
+
+margin-bottom:15px;
+
+
+line-height:1.6;
+
+
+overflow-wrap:break-word;
+
+
+}
+
+
+
+
+
+.profile code{
+
+
+display:block;
+
+
+background:#eee;
+
+
+padding:10px;
+
+
+border-radius:8px;
+
+
+font-size:15px;
+
+
+letter-spacing:1px;
+
+
+word-break:break-all;
+
+
+}
+
+
+
+
+.composer{
+
+
+background:white;
+
+
+padding:15px;
+
+
+border-radius:12px;
+
+
+}
+
+
+
+
+textarea{
+
+
+width:100%;
+
+
+min-height:120px;
+
+
+padding:14px;
+
 
 border-radius:10px;
+
+
+border:1px solid #ccc;
+
 
 font-size:16px;
 
-font-weight:bold;
 
-cursor:pointer;
+font-family:inherit;
+
+
+resize:vertical;
+
 
 }
 
@@ -33,81 +180,62 @@ cursor:pointer;
 
 
 
-#loadMore:active{
+textarea:focus{
 
-transform:scale(.98);
+
+outline:none;
+
+
+border-color:#555;
+
 
 }
 
 
 
 
+button{
 
 
-/* =====================
-   COMMENT TOGGLE BUTTON
-===================== */
+width:100%;
 
-
-.card > button{
-
-background:#555;
-
-font-size:14px;
-
-padding:10px;
 
 margin-top:10px;
 
-}
+
+padding:13px;
 
 
+border:none;
 
-
-
-.card > button:hover{
-
-opacity:.9;
-
-}
-
-
-
-
-
-
-/* =====================
-   LAZY COMMENT AREA
-===================== */
-
-
-.comments{
-
-
-margin-top:15px;
-
-margin-left:25px;
-
-padding-left:15px;
-
-border-left:3px solid #ddd;
-
-
-}
-
-
-
-
-.comment{
-
-
-background:#f7f7f7;
-
-padding:10px;
 
 border-radius:10px;
 
-margin-bottom:8px;
+
+background:#222;
+
+
+color:white;
+
+
+font-size:16px;
+
+
+font-weight:bold;
+
+
+cursor:pointer;
+
+
+}
+
+
+
+
+button:active{
+
+
+transform:scale(0.98);
 
 
 }
@@ -116,26 +244,84 @@ margin-bottom:8px;
 
 
 
-.comment p{
+input{
 
 
-margin:5px 0;
+width:100%;
 
-line-height:1.4;
+
+padding:13px;
+
+
+border-radius:10px;
+
+
+border:1px solid #ccc;
+
+
+font-size:16px;
+
+
+margin-top:8px;
+
+
+}
+
+
+
+
+
+h2{
+
+
+font-size:22px;
+
+
+margin-top:25px;
+
+
+}
+
+
+
+
+.card{
+
+
+background:white;
+
+
+padding:15px;
+
+
+margin-bottom:12px;
+
+
+border-radius:12px;
+
+
+overflow-wrap:break-word;
+
+
+}
+
+
+
+.card p{
+
 
 white-space:pre-wrap;
 
 
+line-height:1.5;
+
+
 }
 
 
 
+.card small{
 
-
-.comment small{
-
-
-font-size:12px;
 
 color:#777;
 
@@ -146,72 +332,200 @@ color:#777;
 
 
 
-
-/* =====================
-   COMMENT INPUT
-===================== */
+@media(min-width:768px){
 
 
-.comments input{
 
+.container{
+
+
+padding-top:40px;
+
+
+}
+
+
+
+.profile button,
+
+
+.composer button{
+
+
+width:auto;
+
+
+min-width:130px;
+
+
+}
+
+
+
+}
+
+.profile-bar{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+background:white;
+
+padding:15px;
+
+border-radius:12px;
+
+margin-bottom:10px;
+
+}
+
+
+.profile-item{
+
+display:flex;
+
+flex-direction:column;
+
+gap:4px;
+
+}
+
+
+.profile-item span{
+
+font-size:13px;
+
+color:#777;
+
+}
+
+
+.account-btn{
+
+background:#444;
+
+margin-bottom:15px;
+
+}
+
+
+
+.popup{
+
+display:none;
+
+position:fixed;
+
+top:0;
+
+left:0;
+
+width:100%;
+
+height:100%;
+
+background:rgba(0,0,0,.5);
+
+align-items:center;
+
+justify-content:center;
+
+z-index:999;
+
+}
+
+
+
+.popup-box{
+
+background:white;
+
+width:90%;
+
+max-width:400px;
+
+padding:20px;
+
+border-radius:15px;
+
+}
+
+
+
+.popup-box code{
+
+display:block;
+
+background:#eee;
+
+padding:12px;
+
+border-radius:8px;
+
+word-break:break-all;
+
+margin-bottom:10px;
+
+}
+
+
+
+.popup-box input{
 
 width:100%;
 
 padding:12px;
 
-margin-top:10px;
-
 border-radius:8px;
 
 border:1px solid #ccc;
 
-font-size:15px;
-
-
 }
-
-
-
-
-
-.comments button{
-
-
-margin-top:8px;
-
-background:#222;
-
-
-}
-
-
-
-
-
 
 /* =====================
-   MOBILE
+   COMMENT THREAD
 ===================== */
-
-
-@media(max-width:600px){
 
 
 .comments{
 
+margin-top:15px;
 
-margin-left:15px;
+margin-left:25px;
 
-padding-left:10px;
+padding-left:15px;
 
-border-left-width:2px;
+padding-top:10px;
+
+border-left:3px solid #ddd;
+
+}
+
+
+
+.comment{
+
+
+background:#f7f7f7;
+
+
+padding:10px;
+
+
+border-radius:10px;
+
+
+margin-bottom:8px;
 
 
 }
 
 
 
-.card > button{
+.comment b{
 
 
 font-size:14px;
@@ -221,13 +535,57 @@ font-size:14px;
 
 
 
-#loadMore{
+.comment p{
 
 
-font-size:15px;
+margin:5px 0;
+
+
+font-size:14px;
+
+
+white-space:pre-wrap;
 
 
 }
+
+
+
+.comment small{
+
+
+font-size:12px;
+
+
+color:#888;
+
+
+}
+
+
+
+/* input komentar */
+
+
+.card input{
+
+
+width:100%;
+
+
+padding:12px;
+
+
+margin-top:12px;
+
+
+border-radius:8px;
+
+
+border:1px solid #ccc;
+
+
+font-size:15px;
 
 
 }
