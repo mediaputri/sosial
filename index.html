@@ -5,34 +5,44 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" 
+content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
 
 <title>KataHub</title>
 
+
 <link rel="stylesheet" href="style.css">
 
+
 </head>
+
 
 
 <body>
 
 
+
+<div class="app">
+
+
+
+<!-- HEADER -->
+
 <header class="header">
 
 
-<div class="logo">
+<div class="brand">
+
 KataHub
+
 </div>
 
 
-<input 
-class="search"
-placeholder="Cari posting..."
->
+<div class="header-icon">
 
+🔔
 
-<div class="icons">
-🔔 👤
 </div>
 
 
@@ -42,32 +52,43 @@ placeholder="Cari posting..."
 
 
 
-<div class="container">
 
 
-<aside class="left">
+<!-- PROFILE MINI -->
 
 
-<div class="user-card">
+<section class="profile">
 
 
 <div class="avatar">
+
 👤
+
 </div>
+
+
+
+<div class="profile-info">
 
 
 <div id="profile">
-Loading...
+
+User
+
 </div>
 
 
-<div class="point">
 
-⚡
+<div class="credit">
+
+⚡ 
 <span id="credit">
+
 0
+
 </span>
-kredit
+
+Kredit
 
 </div>
 
@@ -76,22 +97,7 @@ kredit
 
 
 
-
-<div class="menu">
-
-<div>🏠 Beranda</div>
-
-<div>🔥 Trending</div>
-
-<div>⭐ Favorit</div>
-
-<div>⚙ Pengaturan</div>
-
-
-</div>
-
-
-</aside>
+</section>
 
 
 
@@ -99,43 +105,27 @@ kredit
 
 
 
-<section class="center">
+<!-- CREATE POST -->
 
 
+<section class="create-post">
 
-<div class="create">
 
+<textarea
 
-<textarea 
 id="text"
-placeholder="Apa yang ingin kamu bagikan?"
+
+placeholder="Apa yang kamu pikirkan?"
+
 ></textarea>
 
 
-<button id="postBtn"
-onclick="post()">
+
+<button onclick="post()">
 
 Posting
 
 </button>
-
-
-</div>
-
-
-
-
-
-<div id="feed">
-
-
-<div class="loading">
-Memuat feed...
-</div>
-
-
-</div>
-
 
 
 
@@ -148,70 +138,116 @@ Memuat feed...
 
 
 
-<aside class="right">
+<!-- FEED -->
 
 
-<div class="box">
+<section id="feed">
 
-<h3>
-Aktivitas
-</h3>
 
-<p>
-15 menit aktif
-=
-1 kredit
-</p>
+<div class="loading">
+
+Memuat postingan...
 
 </div>
 
 
-<div class="box">
+</section>
 
-<h3>
-Tips
-</h3>
 
-<p>
-Gunakan poin untuk posting dan komentar
-</p>
+
+
+
+
+
+
+
+<!-- BOTTOM NAV -->
+
+
+<nav class="bottom-nav">
+
+
+<div>
+
+🏠
+
+<span>
+Home
+</span>
 
 </div>
 
 
-</aside>
 
+<div>
 
+🔍
+
+<span>
+Cari
+</span>
 
 </div>
 
 
-
-
-
-
-
-<nav class="mobile-menu">
-
-
-<div>🏠</div>
-
-<div>🔍</div>
 
 <div onclick="focusPost()">
+
+
 ➕
+
+<span>
+Post
+</span>
+
+
 </div>
 
-<div>👤</div>
+
+
+
+<div>
+
+💬
+
+<span>
+Chat
+</span>
+
+</div>
+
+
+
+
+<div>
+
+👤
+
+<span>
+Profil
+</span>
+
+</div>
+
 
 
 </nav>
 
 
 
+
+
+</div>
+
+
+
+
+
+
 <script src="config.js"></script>
 
 <script src="app.js"></script>
+
 
 
 </body>
