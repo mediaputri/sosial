@@ -1,5 +1,4 @@
-
-let user=
+let user =
 JSON.parse(
 localStorage.getItem("user")
 );
@@ -40,14 +39,13 @@ API_URL+"?action="+action
 
 
 
-
 async function start(){
 
 
 if(!user){
 
 
-let res=
+let res =
 await api("init");
 
 
@@ -67,10 +65,12 @@ JSON.stringify(user)
 showProfile();
 
 
+
 setInterval(
 heartbeat,
 60000
 );
+
 
 
 loadFeed();
@@ -89,11 +89,12 @@ function showProfile(){
 
 document
 .getElementById("profile")
-.innerHTML=
+.innerHTML =
 
 `
 Username:
 <b>${user.username}</b>
+
 <br>
 
 Credit:
@@ -108,10 +109,14 @@ ${user.credit}
 
 
 
+
+
+
+
 async function heartbeat(){
 
 
-let r=
+let r =
 await api(
 "heartbeat",
 {
@@ -120,10 +125,39 @@ user:user.id
 );
 
 
-document
-.getElementById("credit")
-.innerHTML=
+
+if(r.credit !== undefined){
+
+
+user.credit =
 r.credit;
+
+
+user.activeMinute =
+r.active;
+
+
+
+localStorage.setItem(
+"user",
+JSON.stringify(user)
+);
+
+
+
+let credit =
+document.getElementById("credit");
+
+
+if(credit){
+
+credit.innerHTML =
+user.credit;
+
+}
+
+
+}
 
 
 }
@@ -138,13 +172,14 @@ r.credit;
 async function post(){
 
 
-let text=
+let text =
 document
 .getElementById("text")
 .value;
 
 
-let r=
+
+let r =
 await api(
 "post",
 {
@@ -153,21 +188,58 @@ user:user.id,
 
 text:text
 
-});
+}
+
+);
+
+
 
 
 if(r.error){
+
 
 alert(r.error);
 
 return;
 
+
 }
+
+
+
+
+// update credit dari server
+
+if(r.credit !== undefined){
+
+
+user.credit =
+r.credit;
+
+
+
+localStorage.setItem(
+"user",
+JSON.stringify(user)
+);
+
+
+
+document
+.getElementById("credit")
+.innerHTML =
+user.credit;
+
+
+}
+
+
 
 
 document
 .getElementById("text")
 .value="";
+
 
 
 loadFeed();
@@ -181,14 +253,17 @@ loadFeed();
 
 
 
+
 async function loadFeed(){
 
 
-let posts=
+let posts =
 await api("feed");
 
 
+
 let html="";
+
 
 
 posts.forEach(p=>{
@@ -200,6 +275,7 @@ html+=`
 
 
 <b>${p.user}</b>
+
 
 <p>
 ${p.text}
@@ -220,12 +296,16 @@ ${p.time}
 });
 
 
+
 document
 .getElementById("feed")
-.innerHTML=html;
+.innerHTML =
+html;
 
 
 }
+
+
 
 
 
