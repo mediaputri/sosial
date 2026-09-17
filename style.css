@@ -10,15 +10,11 @@ body{
 margin:0;
 
 font-family:
-Arial,
-Helvetica,
-sans-serif;
+Arial,Helvetica,sans-serif;
 
 background:#f0f2f5;
 
 color:#1c1e21;
-
-padding-bottom:70px;
 
 }
 
@@ -29,7 +25,7 @@ padding-bottom:70px;
 .topbar{
 
 
-height:60px;
+height:64px;
 
 background:#1877f2;
 
@@ -39,9 +35,9 @@ display:flex;
 
 align-items:center;
 
-justify-content:space-between;
+gap:30px;
 
-padding:0 18px;
+padding:0 30px;
 
 position:sticky;
 
@@ -50,16 +46,13 @@ top:0;
 z-index:10;
 
 
-box-shadow:
-0 2px 5px rgba(0,0,0,.15);
-
 }
 
 
 
-.logo{
+.brand{
 
-font-size:24px;
+font-size:28px;
 
 font-weight:bold;
 
@@ -67,7 +60,26 @@ font-weight:bold;
 
 
 
-.menu{
+.search{
+
+background:white;
+
+color:#777;
+
+border-radius:20px;
+
+padding:10px 20px;
+
+width:300px;
+
+
+}
+
+
+
+.top-menu{
+
+margin-left:auto;
 
 font-size:22px;
 
@@ -77,12 +89,21 @@ font-size:22px;
 
 
 
-main{
+.layout{
 
 
-max-width:700px;
+display:grid;
 
-margin:auto;
+grid-template-columns:
+
+260px minmax(400px,700px) 260px;
+
+
+gap:20px;
+
+max-width:1250px;
+
+margin:20px auto;
 
 
 }
@@ -91,32 +112,50 @@ margin:auto;
 
 
 
-.profile-box{
+.left-sidebar,
+.right-sidebar{
+
+
+position:sticky;
+
+top:80px;
+
+height:max-content;
+
+
+}
+
+
+
+
+
+.profile-card,
+.widget,
+.create-box,
+.post-card{
 
 
 background:white;
 
-margin-top:10px;
+border-radius:12px;
 
 padding:15px;
 
-display:flex;
-
-gap:15px;
-
-align-items:center;
+margin-bottom:15px;
 
 
 }
+
+
 
 
 
 .avatar{
 
 
-width:55px;
+width:70px;
 
-height:55px;
+height:70px;
 
 border-radius:50%;
 
@@ -128,7 +167,9 @@ align-items:center;
 
 justify-content:center;
 
-font-size:30px;
+font-size:35px;
+
+margin-bottom:10px;
 
 
 }
@@ -137,14 +178,13 @@ font-size:30px;
 
 
 
-.credit-box{
+.credit{
 
 
-margin-top:5px;
+margin-top:10px;
 
-font-size:14px;
+font-weight:bold;
 
-color:#65676b;
 
 }
 
@@ -152,14 +192,16 @@ color:#65676b;
 
 
 
-.create-post{
+.left-sidebar nav div{
 
 
 background:white;
 
-margin-top:10px;
-
 padding:15px;
+
+margin-bottom:5px;
+
+border-radius:8px;
 
 
 }
@@ -173,35 +215,31 @@ textarea{
 
 width:100%;
 
-height:90px;
+height:100px;
 
 border:none;
 
 background:#f0f2f5;
 
-border-radius:20px;
+border-radius:10px;
 
 padding:15px;
 
-font-size:15px;
-
-resize:none;
+font-size:16px;
 
 
 }
 
 
 
-
-
 button{
 
 
-margin-top:10px;
-
 width:100%;
 
-height:40px;
+margin-top:10px;
+
+height:42px;
 
 border:none;
 
@@ -222,33 +260,12 @@ font-weight:bold;
 
 
 
-
-
-.post-card{
-
-
-background:white;
-
-margin-top:10px;
-
-padding:15px;
-
-
-}
-
-
-
-
-
 .post-header{
 
 
 display:flex;
 
 gap:10px;
-
-align-items:center;
-
 
 }
 
@@ -257,13 +274,14 @@ align-items:center;
 .small-avatar{
 
 
-width:40px;
+width:45px;
 
-height:40px;
+height:45px;
 
 border-radius:50%;
 
 background:#ddd;
+
 
 display:flex;
 
@@ -277,37 +295,12 @@ justify-content:center;
 
 
 
-
-.username{
-
-
-font-weight:bold;
-
-
-}
-
-
-
-.time{
-
-
-font-size:12px;
-
-color:#65676b;
-
-
-}
-
-
-
-
-
 .post-text{
 
 
-margin-top:15px;
+margin:20px 0;
 
-font-size:16px;
+font-size:17px;
 
 line-height:1.5;
 
@@ -316,14 +309,10 @@ line-height:1.5;
 
 
 
-
-
 .post-action{
 
 
 border-top:1px solid #ddd;
-
-margin-top:15px;
 
 padding-top:10px;
 
@@ -331,7 +320,16 @@ display:flex;
 
 justify-content:space-around;
 
-color:#65676b;
+
+}
+
+
+
+
+
+.mobile-nav{
+
+display:none;
 
 
 }
@@ -340,78 +338,114 @@ color:#65676b;
 
 
 
-.bottom-nav{
 
+
+@media(max-width:1000px){
+
+
+.layout{
+
+
+grid-template-columns:
+
+220px 1fr;
+
+
+}
+
+
+
+.right-sidebar{
+
+display:none;
+
+}
+
+
+}
+
+
+
+
+
+@media(max-width:700px){
+
+
+.topbar{
+
+padding:0 15px;
+
+}
+
+
+
+.search{
+
+display:none;
+
+}
+
+
+
+.layout{
+
+
+display:block;
+
+margin:0;
+
+
+}
+
+
+
+.left-sidebar{
+
+
+display:none;
+
+
+}
+
+
+
+.feed-area{
+
+
+width:100%;
+
+
+}
+
+
+
+.mobile-nav{
+
+
+display:flex;
 
 position:fixed;
 
 bottom:0;
 
+height:60px;
+
+background:white;
+
 left:0;
 
 right:0;
 
-height:60px;
-
-
-background:white;
-
-
-display:flex;
 
 justify-content:space-around;
 
 align-items:center;
 
 
+font-size:24px;
+
 border-top:1px solid #ddd;
 
-
-font-size:12px;
-
-
-}
-
-
-
-
-
-.bottom-nav div{
-
-
-text-align:center;
-
-}
-
-
-
-
-
-@media(max-width:500px){
-
-
-
-.logo{
-
-font-size:22px;
-
-}
-
-
-main{
-
-width:100%;
-
-}
-
-
-
-.profile-box,
-.create-post,
-.post-card{
-
-
-border-radius:0;
 
 }
 
