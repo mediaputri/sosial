@@ -1,12 +1,15 @@
-
-let user=
+let user =
 JSON.parse(
-localStorage.getItem("user")
+localStorage.user || "null"
 );
 
 
 
-async function api(action,data=null){
+let feedCache=[];
+
+
+
+async function api(action,data){
 
 
 if(data){
@@ -15,11 +18,8 @@ data.action=action;
 
 
 return fetch(API_URL,{
-
 method:"POST",
-
 body:JSON.stringify(data)
-
 })
 .then(r=>r.json());
 
@@ -39,32 +39,30 @@ API_URL+"?action="+action
 
 
 
-
-
 async function start(){
 
 
 if(!user){
 
-
-let res=
+let r=
 await api("init");
 
 
-user=res.user;
+user=r.user;
 
 
-localStorage.setItem(
-"user",
-JSON.stringify(user)
-);
+localStorage.user=
+JSON.stringify(user);
 
 
 }
 
 
 
-showProfile();
+renderUser();
+
+
+loadFeed();
 
 
 setInterval(
@@ -73,7 +71,66 @@ heartbeat,
 );
 
 
-loadFeed();
+}
+
+
+
+
+
+
+
+function renderUser(){
+
+
+profile.innerHTML=
+`
+<b>${user.username}</b>
+`;
+
+
+credit.innerHTML=
+user.credit;
+
+
+}
+
+
+
+
+
+async function loadFeed(){
+
+
+let local=
+localStorage.feed;
+
+
+
+if(local){
+
+renderFeed(
+JSON.parse(local)
+);
+
+}
+
+
+
+let data=
+await api("feed");
+
+
+
+feedCache=data;
+
+
+localStorage.feed=
+JSON.stringify(data);
+
+
+
+renderFeed(data);
+
 
 
 }
@@ -84,26 +141,154 @@ loadFeed();
 
 
 
-function showProfile(){
+
+function renderFeed(posts){
 
 
-document
-.getElementById("profile")
-.innerHTML=
+let html="";
 
-`
-Username:
-<b>${user.username}</b>
-<br>
 
-Credit:
-<span id="credit">
-${user.credit}
-</span>
+posts.forEach(p=>{
+
+
+html+=`
+
+<div class="post-card">
+
+
+<div class="post-header">
+
+<div class="small-avatar">
+👤
+</div>
+
+
+<b>${p.user}</b>
+
+
+</div>
+
+
+
+<div class="post-text">
+
+${p.text}
+
+</div>
+
+
+
+<div class="post-action">
+
+👍 Suka
+
+💬 Komentar
+
+↗ Bagikan
+
+
+</div>
+
+
+
+</div>
 
 `;
 
+
+});
+
+
+feed.innerHTML=html;
+
+
 }
+
+
+
+
+
+
+
+
+async function post(){
+
+
+let text=
+document.getElementById("text").value.trim();
+
+
+
+if(!text)
+return;
+
+
+
+let r=
+await api("post",
+{
+
+user:user.id,
+
+text:text
+
+});
+
+
+
+if(r.error){
+
+alert(r.error);
+
+return;
+
+}
+
+
+
+user.credit=r.credit;
+
+localStorage.user=
+JSON.stringify(user);
+
+
+
+document.getElementById("text")
+.value="";
+
+
+
+renderUser();
+
+
+
+let newPost={
+
+user:user.username,
+
+text:text,
+
+time:new Date(),
+
+comments:[]
+
+};
+
+
+feedCache.unshift(newPost);
+
+
+localStorage.feed=
+JSON.stringify(feedCache);
+
+
+renderFeed(feedCache);
+
+
+
+}
+
+
 
 
 
@@ -120,10 +305,16 @@ user:user.id
 );
 
 
-document
-.getElementById("credit")
-.innerHTML=
-r.credit;
+
+user.credit=r.credit;
+
+
+localStorage.user=
+JSON.stringify(user);
+
+
+
+renderUser();
 
 
 }
@@ -131,102 +322,14 @@ r.credit;
 
 
 
-
-
-
-
-async function post(){
-
-
-let text=
-document
-.getElementById("text")
-.value;
-
-
-let r=
-await api(
-"post",
-{
-
-user:user.id,
-
-text:text
-
-});
-
-
-if(r.error){
-
-alert(r.error);
-
-return;
-
-}
-
+function focusPost(){
 
 document
 .getElementById("text")
-.value="";
-
-
-loadFeed();
+.focus();
 
 
 }
-
-
-
-
-
-
-
-async function loadFeed(){
-
-
-let posts=
-await api("feed");
-
-
-let html="";
-
-
-posts.forEach(p=>{
-
-
-html+=`
-
-<div class="card">
-
-
-<b>${p.user}</b>
-
-<p>
-${p.text}
-</p>
-
-
-<small>
-${p.time}
-</small>
-
-
-</div>
-
-
-`;
-
-
-});
-
-
-document
-.getElementById("feed")
-.innerHTML=html;
-
-
-}
-
 
 
 
