@@ -1,7 +1,368 @@
-/* =====================
-   PROFILE
-===================== */
+*{
 
+box-sizing:border-box;
+
+}
+
+
+
+body{
+
+
+margin:0;
+
+
+padding:0;
+
+
+font-family:
+
+Arial,
+
+Helvetica,
+
+sans-serif;
+
+
+
+background:#f3f3f3;
+
+
+color:#222;
+
+
+}
+
+
+
+.container{
+
+
+width:100%;
+
+
+max-width:650px;
+
+
+margin:auto;
+
+
+padding:20px 15px;
+
+
+}
+
+
+
+
+
+h1{
+
+
+text-align:center;
+
+
+font-size:28px;
+
+
+margin-bottom:20px;
+
+
+}
+
+
+
+
+
+.profile{
+
+
+background:white;
+
+
+padding:15px;
+
+
+border-radius:12px;
+
+
+margin-bottom:15px;
+
+
+line-height:1.6;
+
+
+overflow-wrap:break-word;
+
+
+}
+
+
+
+
+
+.profile code{
+
+
+display:block;
+
+
+background:#eee;
+
+
+padding:10px;
+
+
+border-radius:8px;
+
+
+font-size:15px;
+
+
+letter-spacing:1px;
+
+
+word-break:break-all;
+
+
+}
+
+
+
+
+.composer{
+
+
+background:white;
+
+
+padding:15px;
+
+
+border-radius:12px;
+
+
+}
+
+
+
+
+textarea{
+
+
+width:100%;
+
+
+min-height:120px;
+
+
+padding:14px;
+
+
+border-radius:10px;
+
+
+border:1px solid #ccc;
+
+
+font-size:16px;
+
+
+font-family:inherit;
+
+
+resize:vertical;
+
+
+}
+
+
+
+
+
+textarea:focus{
+
+
+outline:none;
+
+
+border-color:#555;
+
+
+}
+
+
+
+
+button{
+
+
+width:100%;
+
+
+margin-top:10px;
+
+
+padding:13px;
+
+
+border:none;
+
+
+border-radius:10px;
+
+
+background:#222;
+
+
+color:white;
+
+
+font-size:16px;
+
+
+font-weight:bold;
+
+
+cursor:pointer;
+
+
+}
+
+
+
+
+button:active{
+
+
+transform:scale(0.98);
+
+
+}
+
+
+
+
+
+input{
+
+
+width:100%;
+
+
+padding:13px;
+
+
+border-radius:10px;
+
+
+border:1px solid #ccc;
+
+
+font-size:16px;
+
+
+margin-top:8px;
+
+
+}
+
+
+
+
+
+h2{
+
+
+font-size:22px;
+
+
+margin-top:25px;
+
+
+}
+
+
+
+
+.card{
+
+
+background:white;
+
+
+padding:15px;
+
+
+margin-bottom:12px;
+
+
+border-radius:12px;
+
+
+overflow-wrap:break-word;
+
+
+}
+
+
+
+.card p{
+
+
+white-space:pre-wrap;
+
+
+line-height:1.5;
+
+
+}
+
+
+
+.card small{
+
+
+color:#777;
+
+
+}
+
+
+
+
+
+@media(min-width:768px){
+
+
+
+.container{
+
+
+padding-top:40px;
+
+
+}
+
+
+
+.profile button,
+
+
+.composer button{
+
+
+width:auto;
+
+
+min-width:130px;
+
+
+}
+
+
+
+}
 
 .profile-bar{
 
@@ -28,7 +389,7 @@ display:flex;
 
 flex-direction:column;
 
-gap:5px;
+gap:4px;
 
 }
 
@@ -42,12 +403,14 @@ color:#777;
 }
 
 
+.account-btn{
 
+background:#444;
 
+margin-bottom:15px;
 
-/* =====================
-   ACCOUNT POPUP
-===================== */
+}
+
 
 
 .popup{
@@ -78,11 +441,11 @@ z-index:999;
 
 .popup-box{
 
+background:white;
+
 width:90%;
 
 max-width:400px;
-
-background:white;
 
 padding:20px;
 
@@ -92,13 +455,11 @@ border-radius:15px;
 
 
 
-
 .popup-box code{
-
 
 display:block;
 
-background:#f1f1f1;
+background:#eee;
 
 padding:12px;
 
@@ -112,221 +473,14 @@ margin-bottom:10px;
 
 
 
-
-
-/* =====================
-   POST CARD
-===================== */
-
-
-.card{
-
-
-background:white;
-
-padding:15px;
-
-margin-bottom:15px;
-
-border-radius:12px;
-
-
-}
-
-
-
-
-.card > p{
-
-
-white-space:pre-wrap;
-
-line-height:1.5;
-
-
-}
-
-
-
-
-
-
-
-/* =====================
-   COMMENT AREA
-===================== */
-
-
-.comments{
-
-
-margin-top:15px;
-
-padding-top:10px;
-
-border-top:1px solid #eee;
-
-
-}
-
-
-
-
-.comment{
-
-
-background:#f7f7f7;
-
-padding:10px;
-
-border-radius:10px;
-
-margin-bottom:8px;
-
-
-}
-
-
-
-.comment b{
-
-
-font-size:14px;
-
-
-}
-
-
-
-.comment p{
-
-
-margin:5px 0;
-
-
-font-size:14px;
-
-
-}
-
-
-
-.comment small{
-
-
-color:#888;
-
-font-size:12px;
-
-
-}
-
-
-
-
-
-
-
-
-/* =====================
-   COMMENT INPUT
-===================== */
-
-
-.card input{
-
+.popup-box input{
 
 width:100%;
 
 padding:12px;
 
-margin-top:10px;
-
 border-radius:8px;
 
 border:1px solid #ccc;
-
-font-size:15px;
-
-
-}
-
-
-
-
-
-.card button{
-
-
-margin-top:8px;
-
-
-}
-
-
-
-
-
-
-
-
-/* =====================
-   MOBILE OPTIMIZATION
-===================== */
-
-
-@media(max-width:600px){
-
-
-
-.container{
-
-
-padding:15px;
-
-
-}
-
-
-
-.profile-bar{
-
-
-padding:12px;
-
-
-}
-
-
-
-.profile-item b{
-
-
-font-size:15px;
-
-
-}
-
-
-
-.card{
-
-
-padding:12px;
-
-
-}
-
-
-
-.comment{
-
-
-padding:9px;
-
-
-}
-
-
 
 }
