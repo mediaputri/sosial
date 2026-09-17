@@ -5,12 +5,15 @@ localStorage.getItem("user")
 
 
 
+
+
 async function api(action,data=null){
 
 
 if(data){
 
-data.action=action;
+
+data.action = action;
 
 
 return fetch(API_URL,{
@@ -26,6 +29,7 @@ body:JSON.stringify(data)
 }
 
 
+
 return fetch(
 API_URL+"?action="+action
 )
@@ -39,13 +43,15 @@ API_URL+"?action="+action
 
 
 
+
 async function start(){
 
 
 let valid = false;
 
 
-// cek user lokal ke server
+
+// cek user lama di server
 
 if(user){
 
@@ -59,15 +65,21 @@ user:user.id
 );
 
 
+
 if(!check.error){
+
 
 valid = true;
 
 
-// update data terbaru
 
-user.credit = check.credit;
-user.activeMinute = check.active;
+user.credit =
+check.credit;
+
+
+user.activeMinute =
+check.active;
+
 
 
 localStorage.setItem(
@@ -76,13 +88,14 @@ JSON.stringify(user)
 );
 
 
-}
 
 }
 
+}
 
 
-// jika user lokal tidak valid
+
+// jika user lokal tidak ditemukan
 
 if(!valid){
 
@@ -92,17 +105,22 @@ localStorage.removeItem(
 );
 
 
+
 let res =
 await api("init");
 
 
-user = res.user;
+
+user =
+res.user;
+
 
 
 localStorage.setItem(
 "user",
 JSON.stringify(user)
 );
+
 
 
 }
@@ -112,16 +130,21 @@ JSON.stringify(user)
 showProfile();
 
 
+
 setInterval(
 heartbeat,
 60000
 );
 
 
+
 loadFeed();
 
 
 }
+
+
+
 
 
 
@@ -158,6 +181,8 @@ ${user.credit}
 
 
 
+
+
 async function heartbeat(){
 
 
@@ -168,6 +193,26 @@ await api(
 user:user.id
 }
 );
+
+
+
+if(r.error){
+
+
+// user sudah tidak ada di server
+
+localStorage.removeItem(
+"user"
+);
+
+
+location.reload();
+
+
+return;
+
+}
+
 
 
 
@@ -190,22 +235,27 @@ JSON.stringify(user)
 
 
 
+
 let credit =
 document.getElementById("credit");
 
 
+
 if(credit){
+
 
 credit.innerHTML =
 user.credit;
 
-}
-
 
 }
 
 
 }
+
+
+}
+
 
 
 
@@ -221,6 +271,15 @@ let text =
 document
 .getElementById("text")
 .value;
+
+
+
+if(!text.trim()){
+
+return;
+
+}
+
 
 
 
@@ -240,10 +299,12 @@ text:text
 
 
 
+
 if(r.error){
 
 
 alert(r.error);
+
 
 return;
 
@@ -253,7 +314,6 @@ return;
 
 
 
-// update credit dari server
 
 if(r.credit !== undefined){
 
@@ -270,10 +330,19 @@ JSON.stringify(user)
 
 
 
-document
-.getElementById("credit")
-.innerHTML =
+let credit =
+document.getElementById("credit");
+
+
+
+if(credit){
+
+
+credit.innerHTML =
 user.credit;
+
+
+}
 
 
 }
@@ -281,9 +350,10 @@ user.credit;
 
 
 
+
 document
 .getElementById("text")
-.value="";
+.value = "";
 
 
 
@@ -291,6 +361,7 @@ loadFeed();
 
 
 }
+
 
 
 
@@ -307,14 +378,15 @@ await api("feed");
 
 
 
-let html="";
+let html = "";
+
 
 
 
 posts.forEach(p=>{
 
 
-html+=`
+html += `
 
 <div class="card">
 
@@ -334,7 +406,6 @@ ${p.time}
 
 </div>
 
-
 `;
 
 
@@ -342,13 +413,15 @@ ${p.time}
 
 
 
+
+
 document
 .getElementById("feed")
-.innerHTML =
-html;
+.innerHTML = html;
 
 
 }
+
 
 
 
