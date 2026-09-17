@@ -1,74 +1,66 @@
-let user =
-JSON.parse(
-localStorage.user || "null"
+let user = JSON.parse(
+    localStorage.getItem("user") || "null"
 );
 
 
-
-let feedCache=[];
-
+let feedCache = [];
 
 
-async function api(action,data){
+// ==========================
+// API CONNECTOR
+// ==========================
+
+async function api(action, data = null) {
 
 
-if(data){
-
-data.action=action;
+    try {
 
 
-return fetch(API_URL,{
-method:"POST",
-body:JSON.stringify(data)
-})
-.then(r=>r.json());
+        if (data) {
 
 
-}
+            data.action = action;
 
 
-return fetch(
-API_URL+"?action="+action
-)
-.then(r=>r.json());
+            let response = await fetch(API_URL, {
+
+                method: "POST",
+
+                body: JSON.stringify(data)
+
+            });
 
 
-}
+            return await response.json();
 
 
-
-
-
-async function start(){
-
-
-if(!user){
-
-let r=
-await api("init");
-
-
-user=r.user;
-
-
-localStorage.user=
-JSON.stringify(user);
-
-
-}
+        }
 
 
 
-renderUser();
+        let response = await fetch(
+            API_URL + "?action=" + action
+        );
 
 
-loadFeed();
+        return await response.json();
 
 
-setInterval(
-heartbeat,
-60000
-);
+
+    } catch (error) {
+
+
+        console.log(error);
+
+
+        return {
+
+            error: "Koneksi gagal"
+
+        };
+
+
+    }
 
 
 }
@@ -78,59 +70,55 @@ heartbeat,
 
 
 
+// ==========================
+// START APP
+// ==========================
 
-function renderUser(){
-
-
-profile.innerHTML=
-`
-<b>${user.username}</b>
-`;
+async function start() {
 
 
-credit.innerHTML=
-user.credit;
+    // jika user belum ada
+    if (!user) {
 
 
-}
+        let result = await api("init");
 
 
 
+        if (result.user) {
 
 
-async function loadFeed(){
-
-
-let local=
-localStorage.feed;
+            user = result.user;
 
 
 
-if(local){
-
-renderFeed(
-JSON.parse(local)
-);
-
-}
+            localStorage.setItem(
+                "user",
+                JSON.stringify(user)
+            );
 
 
+        }
 
-let data=
-await api("feed");
+
+    }
 
 
 
-feedCache=data;
-
-
-localStorage.feed=
-JSON.stringify(data);
+    updateHeader();
 
 
 
-renderFeed(data);
+    loadFeed();
 
+
+
+    // heartbeat setiap menit
+
+    setInterval(
+        heartbeat,
+        60000
+    );
 
 
 }
@@ -141,65 +129,31 @@ renderFeed(data);
 
 
 
+// ==========================
+// UPDATE HEADER
+// ==========================
 
-function renderFeed(posts){
-
-
-let html="";
-
-
-posts.forEach(p=>{
-
-
-html+=`
-
-<div class="post-card">
-
-
-<div class="post-header">
-
-<div class="small-avatar">
-👤
-</div>
-
-
-<b>${p.user}</b>
-
-
-</div>
+function updateHeader(){
 
 
 
-<div class="post-text">
-
-${p.text}
-
-</div>
+    if (!user)
+        return;
 
 
 
-<div class="post-action">
-
-👍 Suka
-
-💬 Komentar
-
-↗ Bagikan
-
-
-</div>
+    document
+    .getElementById("headerUsername")
+    .innerHTML =
+    user.username;
 
 
 
-</div>
+    document
+    .getElementById("headerCredit")
+    .innerHTML =
+    user.credit;
 
-`;
-
-
-});
-
-
-feed.innerHTML=html;
 
 
 }
@@ -211,125 +165,465 @@ feed.innerHTML=html;
 
 
 
-async function post(){
-
-
-let text=
-document.getElementById("text").value.trim();
-
-
-
-if(!text)
-return;
-
-
-
-let r=
-await api("post",
-{
-
-user:user.id,
-
-text:text
-
-});
-
-
-
-if(r.error){
-
-alert(r.error);
-
-return;
-
-}
-
-
-
-user.credit=r.credit;
-
-localStorage.user=
-JSON.stringify(user);
-
-
-
-document.getElementById("text")
-.value="";
-
-
-
-renderUser();
-
-
-
-let newPost={
-
-user:user.username,
-
-text:text,
-
-time:new Date(),
-
-comments:[]
-
-};
-
-
-feedCache.unshift(newPost);
-
-
-localStorage.feed=
-JSON.stringify(feedCache);
-
-
-renderFeed(feedCache);
-
-
-
-}
-
-
-
-
-
+// ==========================
+// HEARTBEAT AKTIF
+// ==========================
 
 async function heartbeat(){
 
 
-let r=
-await api(
-"heartbeat",
-{
-user:user.id
+
+    let result =
+    await api(
+        "heartbeat",
+        {
+
+            user:user.id
+
+        }
+    );
+
+
+
+    if(result.credit !== undefined){
+
+
+
+        user.credit =
+        result.credit;
+
+
+
+        localStorage.setItem(
+            "user",
+            JSON.stringify(user)
+        );
+
+
+
+        updateHeader();
+
+
+    }
+
+
 }
-);
 
 
 
-user.credit=r.credit;
-
-
-localStorage.user=
-JSON.stringify(user);
 
 
 
-renderUser();
+
+
+// ==========================
+// LOAD FEED
+// ==========================
+
+async function loadFeed(){
+
+
+
+    let cache =
+    localStorage.getItem(
+        "feed"
+    );
+
+
+
+    if(cache){
+
+
+        feedCache =
+        JSON.parse(cache);
+
+
+
+        renderFeed(
+            feedCache
+        );
+
+
+    }
+
+
+
+
+
+    let result =
+    await api("feed");
+
+
+
+    if(Array.isArray(result)){
+
+
+        feedCache =
+        result;
+
+
+
+        localStorage.setItem(
+            "feed",
+            JSON.stringify(result)
+        );
+
+
+
+        renderFeed(
+            result
+        );
+
+
+    }
+
 
 
 }
+
+
+
+
+
+
+
+
+
+// ==========================
+// RENDER FEED
+// ==========================
+
+function renderFeed(posts){
+
+
+
+    let html = "";
+
+
+
+    if(posts.length === 0){
+
+
+        html = `
+
+        <div class="post-card">
+
+        Belum ada postingan
+
+        </div>
+
+        `;
+
+
+    }
+
+
+
+
+    posts.forEach(post => {
+
+
+
+        html += `
+
+
+        <article class="post-card">
+
+
+        <div class="post-header">
+
+
+        <div class="small-avatar">
+
+        👤
+
+        </div>
+
+
+
+        <div>
+
+
+        <b>
+        ${post.user}
+        </b>
+
+
+        <div class="time">
+
+        ${formatTime(post.time)}
+
+        </div>
+
+
+        </div>
+
+
+        </div>
+
+
+
+
+
+        <div class="post-text">
+
+        ${escapeHTML(post.text)}
+
+        </div>
+
+
+
+
+
+        <div class="post-action">
+
+
+        <span>
+        👍 Suka
+        </span>
+
+
+        <span>
+        💬 Komentar
+        </span>
+
+
+
+        </div>
+
+
+
+        </article>
+
+
+        `;
+
+
+    });
+
+
+
+    document
+    .getElementById("feed")
+    .innerHTML =
+    html;
+
+
+}
+
+
+
+
+
+
+
+
+// ==========================
+// CREATE POST
+// ==========================
+
+async function post(){
+
+
+
+    let input =
+    document
+    .getElementById("text");
+
+
+
+    let text =
+    input.value.trim();
+
+
+
+
+    if(!text)
+        return;
+
+
+
+    let button =
+    document.querySelector("button");
+
+
+
+    button.disabled = true;
+
+
+
+    let result =
+    await api(
+        "post",
+        {
+
+            user:user.id,
+
+            text:text
+
+        }
+    );
+
+
+
+    button.disabled = false;
+
+
+
+
+
+    if(result.error){
+
+
+        alert(result.error);
+
+
+        return;
+
+
+    }
+
+
+
+
+
+    // update kredit
+
+    user.credit =
+    result.credit;
+
+
+
+    localStorage.setItem(
+        "user",
+        JSON.stringify(user)
+    );
+
+
+
+    updateHeader();
+
+
+
+
+
+    let newPost = {
+
+
+        id:"LOCAL_"+Date.now(),
+
+
+        user:user.username,
+
+
+        text:text,
+
+
+        time:new Date(),
+
+
+        comments:[]
+
+
+    };
+
+
+
+
+
+    feedCache.unshift(
+        newPost
+    );
+
+
+
+    localStorage.setItem(
+        "feed",
+        JSON.stringify(feedCache)
+    );
+
+
+
+    renderFeed(
+        feedCache
+    );
+
+
+
+    input.value="";
+
+
+
+}
+
+
+
+
+
+
+
+
+
+// ==========================
+// UTILITIES
+// ==========================
+
+
+function escapeHTML(text){
+
+
+    return text
+
+    .replace(/</g,"&lt;")
+
+    .replace(/>/g,"&gt;");
+
+
+}
+
+
+
+
+
+function formatTime(time){
+
+
+    try{
+
+
+        return new Date(time)
+        .toLocaleString(
+            "id-ID"
+        );
+
+
+    }catch{
+
+
+        return "";
+
+    }
+
+
+}
+
+
 
 
 
 
 function focusPost(){
 
-document
-.getElementById("text")
-.focus();
+
+    document
+    .getElementById("text")
+    .focus();
 
 
 }
+
+
+
 
 
 
