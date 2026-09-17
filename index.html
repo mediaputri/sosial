@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="id">
 
 <head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>KataHub</title>
 
@@ -14,28 +17,126 @@
 <body>
 
 
-<h1>KataHub</h1>
+<header class="topbar">
 
+<div class="logo">
+KataHub
+</div>
+
+
+<div class="menu">
+🔔
+☰
+</div>
+
+
+</header>
+
+
+
+
+<main>
+
+
+<section class="profile-box">
+
+
+<div class="avatar">
+👤
+</div>
+
+
+<div>
 
 <div id="profile"></div>
 
+<div class="credit-box">
 
-<textarea 
+⚡ Kredit:
+<span id="credit">
+0
+</span>
+
+</div>
+
+</div>
+
+
+</section>
+
+
+
+
+
+<section class="create-post">
+
+
+<textarea
 id="text"
-placeholder="Tulis sesuatu">
-</textarea>
+placeholder="Apa yang ingin kamu bagikan?"
+></textarea>
 
 
 <button onclick="post()">
-POST
+Posting
 </button>
 
 
+</section>
 
-<h2>Feed</h2>
 
 
-<div id="feed"></div>
+
+
+
+<section id="feed">
+
+
+</section>
+
+
+
+</main>
+
+
+
+
+
+<nav class="bottom-nav">
+
+
+<div>
+🏠
+<br>
+Home
+</div>
+
+
+<div>
+🔍
+<br>
+Cari
+</div>
+
+
+<div>
+➕
+<br>
+Post
+</div>
+
+
+<div>
+👤
+<br>
+Profil
+</div>
+
+
+
+</nav>
+
+
 
 
 
