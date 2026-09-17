@@ -484,3 +484,108 @@ border-radius:8px;
 border:1px solid #ccc;
 
 }
+
+/* =====================
+   COMMENT THREAD
+===================== */
+
+
+.comments{
+
+margin-top:15px;
+
+margin-left:25px;
+
+padding-left:15px;
+
+padding-top:10px;
+
+border-left:3px solid #ddd;
+
+}
+
+
+
+.comment{
+
+
+background:#f7f7f7;
+
+
+padding:10px;
+
+
+border-radius:10px;
+
+
+margin-bottom:8px;
+
+
+}
+
+
+
+.comment b{
+
+
+font-size:14px;
+
+
+}
+
+
+
+.comment p{
+
+
+margin:5px 0;
+
+
+font-size:14px;
+
+
+white-space:pre-wrap;
+
+
+}
+
+
+
+.comment small{
+
+
+font-size:12px;
+
+
+color:#888;
+
+
+}
+
+
+
+/* input komentar */
+
+
+.card input{
+
+
+width:100%;
+
+
+padding:12px;
+
+
+margin-top:12px;
+
+
+border-radius:8px;
+
+
+border:1px solid #ccc;
+
+
+font-size:15px;
+
+
+}
