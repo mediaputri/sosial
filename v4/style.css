@@ -1,427 +1,111 @@
-*{
+/* =====================
+   LOAD MORE BUTTON
+===================== */
 
-box-sizing:border-box;
 
-}
-
-
-body{
-
-margin:0;
-
-background:#f0f2f5;
-
-font-family:Arial, sans-serif;
-
-color:#1c1e21;
-
-}
-
-
-
-.header{
-
-
-height:60px;
-
-background:#1877f2;
-
-color:white;
-
-display:flex;
-
-align-items:center;
-
-padding:0 25px;
-
-gap:25px;
-
-position:sticky;
-
-top:0;
-
-z-index:20;
-
-
-}
-
-
-.logo{
-
-font-size:26px;
-
-font-weight:bold;
-
-}
-
-
-
-.search{
-
-
-width:350px;
-
-border:none;
-
-border-radius:20px;
-
-padding:10px 15px;
-
-
-}
-
-
-
-.icons{
-
-margin-left:auto;
-
-font-size:20px;
-
-}
-
-
-
-
-
-.container{
-
-
-max-width:1200px;
-
-margin:20px auto;
-
-
-display:grid;
-
-grid-template-columns:
-
-260px 1fr 260px;
-
-
-gap:20px;
-
-
-}
-
-
-
-
-.left,
-.right{
-
-
-position:sticky;
-
-top:80px;
-
-height:max-content;
-
-}
-
-
-
-
-.user-card,
-.box,
-.create,
-.post-card{
-
-
-background:white;
-
-border-radius:12px;
-
-padding:15px;
-
-margin-bottom:15px;
-
-
-}
-
-
-
-
-.avatar{
-
-
-height:70px;
-
-width:70px;
-
-border-radius:50%;
-
-background:#ddd;
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-font-size:35px;
-
-
-}
-
-
-
-.point{
-
-margin-top:10px;
-
-font-weight:bold;
-
-}
-
-
-
-.menu div{
-
-
-background:white;
-
-padding:15px;
-
-margin-bottom:5px;
-
-border-radius:10px;
-
-
-}
-
-
-
-
-textarea{
-
-
-width:100%;
-
-height:90px;
-
-border:none;
-
-background:#f0f2f5;
-
-border-radius:12px;
-
-padding:15px;
-
-font-size:16px;
-
-resize:none;
-
-
-}
-
-
-
-button{
-
-
-width:100%;
-
-margin-top:10px;
-
-height:42px;
-
-border:none;
-
-border-radius:8px;
-
-background:#1877f2;
-
-color:white;
-
-font-size:16px;
-
-font-weight:bold;
-
-
-}
-
-
-
-
-
-.post-header{
-
-
-display:flex;
-
-gap:10px;
-
-align-items:center;
-
-
-}
-
-
-
-.small-avatar{
-
-
-width:45px;
-
-height:45px;
-
-background:#ddd;
-
-border-radius:50%;
-
-
-display:flex;
-
-align-items:center;
-
-justify-content:center;
-
-
-}
-
-
-
-.post-text{
-
-
-margin:20px 0;
-
-font-size:16px;
-
-line-height:1.5;
-
-
-}
-
-
-
-.post-action{
-
-
-border-top:1px solid #ddd;
-
-padding-top:10px;
-
-display:flex;
-
-justify-content:space-around;
-
-}
-
-
-
-.mobile-menu{
-
-display:none;
-
-}
-
-
-
-
-
-
-@media(max-width:900px){
-
-
-.container{
-
-
-grid-template-columns:
-
-220px 1fr;
-
-
-}
-
-
-
-.right{
-
-display:none;
-
-}
-
-
-
-}
-
-
-
-
-
-@media(max-width:650px){
-
-
-body{
-
-padding-bottom:70px;
-
-}
-
-
-
-.header{
-
-
-padding:0 15px;
-
-}
-
-
-
-.logo{
-
-font-size:22px;
-
-}
-
-
-
-.search{
-
-display:none;
-
-}
-
-
-
-.container{
-
+#loadMore{
 
 display:block;
 
-margin:0;
+width:100%;
+
+margin:20px 0;
+
+padding:13px;
+
+background:#444;
+
+color:white;
+
+border:none;
+
+border-radius:10px;
+
+font-size:16px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+}
+
+
+
+
+
+#loadMore:active{
+
+transform:scale(.98);
+
+}
+
+
+
+
+
+
+/* =====================
+   COMMENT TOGGLE BUTTON
+===================== */
+
+
+.card > button{
+
+background:#555;
+
+font-size:14px;
+
+padding:10px;
+
+margin-top:10px;
+
+}
+
+
+
+
+
+.card > button:hover{
+
+opacity:.9;
+
+}
+
+
+
+
+
+
+/* =====================
+   LAZY COMMENT AREA
+===================== */
+
+
+.comments{
+
+
+margin-top:15px;
+
+margin-left:25px;
+
+padding-left:15px;
+
+border-left:3px solid #ddd;
 
 
 }
 
 
 
-.left{
 
-display:none;
-
-}
+.comment{
 
 
+background:#f7f7f7;
 
-.create{
+padding:10px;
 
-
-border-radius:0;
-
-margin:0 0 10px 0;
-
-}
-
-
-
-.post-card{
-
-
-border-radius:0;
+border-radius:10px;
 
 margin-bottom:8px;
 
@@ -430,116 +114,120 @@ margin-bottom:8px;
 
 
 
-.mobile-menu{
 
 
-display:flex;
+.comment p{
 
-position:fixed;
 
-bottom:0;
+margin:5px 0;
 
-left:0;
+line-height:1.4;
 
-right:0;
-
-height:60px;
-
-background:white;
-
-justify-content:space-around;
-
-align-items:center;
-
-font-size:25px;
-
-border-top:1px solid #ddd;
-
-z-index:50;
+white-space:pre-wrap;
 
 
 }
 
 
 
-}
-
-.header{
 
 
-height:58px;
+.comment small{
 
-background:#1877f2;
 
-color:white;
+font-size:12px;
 
-display:flex;
-
-align-items:center;
-
-justify-content:space-between;
-
-padding:0 15px;
-
-flex-shrink:0;
+color:#777;
 
 
 }
 
 
 
-.brand{
-
-font-size:24px;
-
-font-weight:700;
-
-}
 
 
 
-.header-user{
+/* =====================
+   COMMENT INPUT
+===================== */
 
 
-display:flex;
-
-align-items:center;
-
-gap:10px;
-
-font-size:13px;
+.comments input{
 
 
-}
+width:100%;
 
+padding:12px;
 
+margin-top:10px;
 
-.username-header{
+border-radius:8px;
 
+border:1px solid #ccc;
 
-max-width:100px;
-
-overflow:hidden;
-
-text-overflow:ellipsis;
-
-white-space:nowrap;
+font-size:15px;
 
 
 }
 
 
 
-.credit-header{
 
 
-background:rgba(255,255,255,.2);
+.comments button{
 
-padding:5px 10px;
 
-border-radius:15px;
+margin-top:8px;
 
-font-weight:bold;
+background:#222;
+
+
+}
+
+
+
+
+
+
+/* =====================
+   MOBILE
+===================== */
+
+
+@media(max-width:600px){
+
+
+.comments{
+
+
+margin-left:15px;
+
+padding-left:10px;
+
+border-left-width:2px;
+
+
+}
+
+
+
+.card > button{
+
+
+font-size:14px;
+
+
+}
+
+
+
+#loadMore{
+
+
+font-size:15px;
+
+
+}
 
 
 }
